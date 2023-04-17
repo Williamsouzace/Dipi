@@ -1,0 +1,18 @@
+{
+  "name": "yes",
+  "version": "1.0.0",
+  "description": "Automação Dippi",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open "
+  },
+  "keywords": [
+    "MIT"
+  ],
+  "author": "William De Souza Pereira",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "cypress": "^12.9.0"
+  }
+}

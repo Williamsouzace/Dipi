@@ -32,7 +32,7 @@ Cypress.Commands.add('createStore', () => {
 Cypress.Commands.add('storeRequiredFields', () => {
     cy.visit('/stores')
     cy.get('[type="button"]').first().click()
-    cy.get('.btn-primary').click()
+    cy.contains('Salvar').click()
     cy.get('.form-control.is-invalid, .is-invalid.form-control').should('be.visible')
 })
 //Verificação se a loja foi criada e está na lista de lojas 

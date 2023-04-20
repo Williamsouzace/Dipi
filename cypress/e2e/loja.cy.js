@@ -5,7 +5,7 @@ describe('Automação Dippi', () => {
   it('Verificar campos obrigatórios da loja', () => {
     cy.storeRequiredFields()
   })
-  it.only('Criar loja', () => {
+  it('Criar loja', () => {
     cy.createStore()
   })
   it('Verficação de loja', () => {

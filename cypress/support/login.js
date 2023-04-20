@@ -3,12 +3,11 @@ let email = faker.internet.email()
 let user = 'testeautomacao@multti.com'
 let password = '123456'
 Cypress.Commands.add('gui_login', (
-    user = 'testeautomacao@multti.com',
-    password = "123456",
+  
 ) => {
     cy.visit('/');
-    cy.get('#login-email').type(user);
-    cy.get("#login-password").type(password, { log: false });
+    cy.get('#login-email').type(Cypress.env('user'));
+    cy.get("#login-password").type(Cypress.env('password'), { log: false });
     cy.get('[class="waves-effect btn btn-primary btn-block"').click()
     cy.get('[class="ficon"').last().click()
     cy.contains('Extratos de Transações')
@@ -39,8 +38,8 @@ Cypress.Commands.add('requiredFields', () => {
 Cypress.Commands.add('login', () => {
     cy.clearLocalStorage()
     cy.visit('/')
-    cy.get('#login-email').type(user);
-    cy.get("#login-password").type(password)
+    cy.get('#login-email').type(Cypress.env('user'));
+    cy.get("#login-password").type(Cypress.env('password'))
     cy.get('[class="waves-effect btn btn-primary btn-block"').click()
     cy.contains('Bem vindo, teste automação').should('be.visible')
     cy.get('[class="ficon"').last().click()

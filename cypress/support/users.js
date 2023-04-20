@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+let email = faker.internet.email()
 //Criar um usuário via plataforma 
 Cypress.Commands.add('createUsersPlataform', () => {
     cy.visit('/users')

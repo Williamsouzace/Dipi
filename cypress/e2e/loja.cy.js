@@ -14,7 +14,7 @@ describe('Automação Dippi', () => {
   it('Editar loja', () => {
     cy.editStore()
   })
-  it.only('Deletar loja', () => {
+  it('Deletar loja', () => {
     for (let i = 0; i < 1; i++) {
       cy.deleteStore()
     }

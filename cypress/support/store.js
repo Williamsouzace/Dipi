@@ -70,7 +70,7 @@ Cypress.Commands.add('deleteStore', () => {
     cy.visit('/stores')
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Digite o que deseja buscar"').type('Teste automação')
-    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').eq(0).click()
+    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().should('be.visible').click()
     cy.contains('Excluir').click({ force: true })
     cy.contains('Sim, excluir.').click()
     cy.get('[role="alert"').should('have.text', 'Loja removida com sucesso')

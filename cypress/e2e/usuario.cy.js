@@ -9,5 +9,4 @@ describe('Automação Dippi', () => {
     it('Cadastro usuário pelo site', () => {
        cy.createUsersSite()
      })
-   
   })

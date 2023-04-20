@@ -1,4 +1,4 @@
-describe('Automação Dippi', () => {
+describe('Usuários', () => {
 
     beforeEach(function () {
       cy.sessionLogin()

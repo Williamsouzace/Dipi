@@ -3,8 +3,6 @@ let email = faker.internet.email()
 let user = 'testeautomacao@multti.com'
 let password = '123456'
 Cypress.Commands.add('gui_login', (
-    user = 'testeautomacao@multti.com',
-    password = "123456",
 ) => {
     cy.visit('/');
     cy.get('#login-email').type(user);
@@ -13,15 +11,12 @@ Cypress.Commands.add('gui_login', (
     cy.get('[class="ficon"').last().click()
     cy.contains('Extratos de Transações')
 });
-
 Cypress.Commands.add('sessionLogin', (
     user = 'testeautomacao@multti.com',
     password = "123456"
 ) => {
     const login = () => cy.gui_login(user, password);
-
     cy.session(user, login);
-    
 });
 //Verificação dos campos obrigatórios de criar usuário via site 
 Cypress.Commands.add('requiredFields', () => {

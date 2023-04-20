@@ -7,15 +7,7 @@ describe('Automação Dippi', () => {
       cy.requiredFields()
     })
     it('Cadastro usuário pelo site', () => {
-       cy.createUsers()
+       cy.createUsersSite()
      })
-    it('Usuário inválido', () => {
-      cy.invalidUser()
-    })
-    it('Senha inválida', () => {
-      cy.invalidPassword()
-    })
-    it('login', () => {
-      cy.login()
-    })
+   
   })

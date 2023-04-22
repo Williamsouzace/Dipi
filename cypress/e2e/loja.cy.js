@@ -1,11 +1,11 @@
-describe('Automação Dippi', () => {
+describe('Loja', () => {
   beforeEach(function () {
     cy.sessionLogin()
   })
   it('Verificar campos obrigatórios da loja', () => {
     cy.storeRequiredFields()
   })
-  it.only('Criar loja', () => {
+  it('Criar loja', () => {
     cy.createStore()
   })
   it('Verficação de loja', () => {
@@ -14,7 +14,7 @@ describe('Automação Dippi', () => {
   it('Editar loja', () => {
     cy.editStore()
   })
-  it.only('Deletar loja', () => {
+  it('Deletar loja', () => {
     for (let i = 0; i < 1; i++) {
       cy.deleteStore()
     }

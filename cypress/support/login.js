@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 let email = faker.internet.email()
-let user = 'testeautomacao@multti.com'
+let user = 'mpay@multti.com'
 let password = '123456'
 Cypress.Commands.add('gui_login', (
 ) => {
@@ -12,7 +12,7 @@ Cypress.Commands.add('gui_login', (
     cy.contains('Extratos de Transações')
 });
 Cypress.Commands.add('sessionLogin', (
-    user = 'testeautomacao@multti.com',
+    user = 'mpay@multti.com',
     password = "123456"
 ) => {
     const login = () => cy.gui_login(user, password);
@@ -37,7 +37,7 @@ Cypress.Commands.add('login', () => {
     cy.get('#login-email').type(user);
     cy.get("#login-password").type(password)
     cy.get('[class="waves-effect btn btn-primary btn-block"').click()
-    cy.contains('Bem vindo, teste automação').should('be.visible')
+    cy.contains('Bem vindo, Mpays').should('be.visible')
     cy.get('[class="ficon"').last().click()
 })
 //usuário inválido 

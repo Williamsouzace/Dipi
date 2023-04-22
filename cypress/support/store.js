@@ -41,6 +41,7 @@ Cypress.Commands.add('storeVerification', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Digite o que deseja buscar"').type('Teste automação')
 })
+//Editar loja
 Cypress.Commands.add('editStore', () => {
     cy.visit('/stores')
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').eq(0).click()
@@ -66,10 +67,12 @@ Cypress.Commands.add('editStore', () => {
     }
     cy.contains('Salvar').click()
 })
+//Deletar loja
 Cypress.Commands.add('deleteStore', () => {
     cy.visit('/stores')
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Digite o que deseja buscar"').type('Teste automação')
+    cy.contains('Teste automação').should('be.visible')
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().should('be.visible').click()
     cy.contains('Excluir').click({ force: true })
     cy.contains('Sim, excluir.').click()

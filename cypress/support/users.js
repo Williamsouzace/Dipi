@@ -1,10 +1,7 @@
 import { faker } from '@faker-js/faker'
 let email = faker.internet.email()
-//Criar um usuário via plataforma 
-Cypress.Commands.add('createUsersPlataform', () => {
-    cy.visit('/users')
-    cy.get('[class="btn btn-primary"').click()
-})
+let emailp = faker.internet.email()
+let cpf = faker.datatype.number({ min: 11111111111 })
 //Criar usuário via site
 Cypress.Commands.add('createUsersSite', () => {
     cy.clearAllLocalStorage()
@@ -21,4 +18,50 @@ Cypress.Commands.add('createUsersSite', () => {
     cy.get('[class="waves-effect btn btn-primary btn-block"').click().should('have.text', 'Cadastrar')
     cy.wait('@request')
     cy.get('@request').its('response.statusCode').should('eq', 200)
+})
+//Criar um usuário via plataforma 
+Cypress.Commands.add('createUsersPlataform', () => {
+    cy.visit('/users')
+    cy.get('[class="btn btn-primary"').click()
+    cy.get('[name="name"').type('Usuário automação').should('be.visible')
+    cy.get('[name="email"').type(emailp).should('be.visible')
+    cy.get('[name="cpf"').type(cpf).should('be.visible')
+    cy.get('[class="form-control calendar-border"').type('10/10/1990')
+    cy.get('[name="profile_id"').select('Cliente')
+    cy.get('[class="select__indicator select__dropdown-indicator css-qj08tm-indicatorContainer"]').click().type('XI{enter}Ro{enter}')
+    cy.get('[name="password"').type('123456')
+    cy.get('[name="password_confirmation"').type('123456')
+    cy.intercept('POST', '/api/store/users/create').as('request')
+    cy.contains('Salvar').should('be.visible').click()
+    cy.wait('@request')
+    cy.get('@request').its('response.statusCode').should('eq', 201)
+})
+//Editar usuário 
+Cypress.Commands.add('editusers', () => {
+    cy.visit('/users')
+    cy.reload()
+    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
+    cy.contains('Editar').click()
+    cy.get('[class="form-control calendar-border"').type('10/10/1990')
+    cy.get('[name="profile_id"').select('Administrador')
+    cy.get('[class="css-8mmkcg"').first().click()
+    cy.get('[name="password"').clear().type('102030')
+    cy.get('[name="password_confirmation"').type('102030')
+    cy.contains('Salvar').should('be.visible').click()
+})
+//Ativar e inativar usuário
+Cypress.Commands.add('inactivateActivateUser', () => {
+    cy.visit('/users')
+    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
+    cy.contains('Editar').click()
+    cy.get('[class="switch-icon-left"').click({ force: true })
+})
+//Deletar usuário
+Cypress.Commands.add('deleteUsers', () => {
+    cy.visit('/users')
+    cy.get('[class="btn btn-outline-secondary"').click()
+    cy.get('[placeholder="Digite o que deseja buscar"').type('Usuário automação').wait(2000)
+    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
+    cy.contains('Excluir').click()
+    cy.contains('Sim, excluir.').click()
 })

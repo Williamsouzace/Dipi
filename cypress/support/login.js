@@ -3,7 +3,7 @@ let email = faker.internet.email()
 let user = 'mpay@multti.com'
 let password = '123456'
 Cypress.Commands.add('gui_login', (
-    user = 'testeautomacao@multti.com',
+    user = 'mpay@multti.com',
     password = "123456",
 ) => {
     cy.visit('/');

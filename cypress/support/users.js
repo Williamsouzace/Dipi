@@ -42,12 +42,13 @@ Cypress.Commands.add('editusers', () => {
     cy.reload()
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
     cy.contains('Editar').click()
-    cy.get('[class="form-control calendar-border"').type('10/10/1990')
     cy.get('[name="profile_id"').select('Administrador')
     cy.get('[class="css-8mmkcg"').first().click()
     cy.get('[name="password"').clear().type('102030')
     cy.get('[name="password_confirmation"').type('102030')
     cy.contains('Salvar').should('be.visible').click()
+    cy.contains('Usuário atualizado com sucesso').should('be.visible')
+
 })
 //Ativar e inativar usuário
 Cypress.Commands.add('inactivateActivateUser', () => {
@@ -55,6 +56,8 @@ Cypress.Commands.add('inactivateActivateUser', () => {
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
     cy.contains('Editar').click()
     cy.get('[class="switch-icon-left"').click({ force: true })
+    cy.contains('Salvar').should('be.visible').click()
+    cy.contains('Usuário atualizado com sucesso').should('be.visible')
 })
 //Deletar usuário
 Cypress.Commands.add('deleteUsers', () => {
@@ -64,4 +67,5 @@ Cypress.Commands.add('deleteUsers', () => {
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click()
     cy.contains('Excluir').click()
     cy.contains('Sim, excluir.').click()
+    cy.contains('Usuário removida com sucesso').should('be.visible')
 })

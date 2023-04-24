@@ -15,7 +15,8 @@ describe('Usuário', () => {
   it('Editar usuário', () => {
     cy.editusers()
   })
-  it('Ativar e inativar o usuário', () => {
+  it('Inativa e Ativa usuário', () => {
+    cy.inactivateActivateUser() 
     cy.inactivateActivateUser()
   })
   it('Deletar Usuário', () => {

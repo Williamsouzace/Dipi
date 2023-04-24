@@ -1,11 +1,14 @@
 import { faker } from '@faker-js/faker'
 let cnpj = faker.datatype.number({ min: 10000000000000 })
+let cnpjA = faker.datatype.number({ min: 10000000000000 })
 let cpf = faker.datatype.number({ min: 10000000000 })
+let cpfA = faker.datatype.number({ min: 10000000000 })
+
 //Criar uma loja
 Cypress.Commands.add('createStore', () => {
     cy.visit('/stores')
     cy.get('[type="button"').first().click()
-    cy.get('[name="StoreCnpj"').type(cnpj).wait(2000)
+    cy.get('[name="StoreCnpj"').type(cnpj)
     cy.get('[name="StoreRazaoSocial"').type('Teste automação')
     cy.get('[name="StoreZipCode"').type('62322240')
     cy.get('[name="StoreNumber"').type('1000')
@@ -46,12 +49,12 @@ Cypress.Commands.add('editStore', () => {
     cy.visit('/stores')
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').eq(0).click()
     cy.get('[class="align-middle ml-50"').first().click()
-    cy.get('[name="StoreCnpj"').type(cnpj).wait(2000)
-    cy.get('[name="StoreRazaoSocial"').type('Teste automação')
+    cy.get('[name="StoreCnpj"').type(cnpjA)
+    cy.get('[name="StoreRazaoSocial"').type('Loja atualizada')
     cy.get('[name="StoreZipCode"').type('62322240')
     cy.get('[name="StoreNumber"').type('1000')
-    cy.get('[name="StoreRepresentative"').type('William Pereira')
-    cy.get('[name="StoreRepresentativeCpf"').type(cpf)
+    cy.get('[name="StoreRepresentative"').type('Nome atualizado')
+    cy.get('[name="StoreRepresentativeCpf"').type(cpfA)
     const uploadImage = ('cypress/fixtures/image.jpg')
     cy.get('[class="custom-dropzone-input "').first().selectFile(uploadImage, {
         action: ('drag-drop')
@@ -66,6 +69,7 @@ Cypress.Commands.add('editStore', () => {
         cy.get('[class="custom-control-input"]').eq(i).check({ force: true });
     }
     cy.contains('Salvar').click()
+    cy.contains('Loja atualizada com sucesso').should('be.visible')
 })
 //Deletar loja
 Cypress.Commands.add('deleteStore', () => {

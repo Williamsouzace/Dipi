@@ -1,11 +1,4 @@
-import { faker } from '@faker-js/faker'
-let email = faker.internet.email()
-let user = 'mpay@multti.com'
-let password = '123456'
-Cypress.Commands.add('gui_login', (
-    user = 'testeautomacao@multti.com',
-    password = "123456",
-) => {
+Cypress.Commands.add('gui_login', () => {
     cy.visit('/');
     cy.get('#login-email').type(Cypress.env('user'));
     cy.get("#login-password").type(Cypress.env('password'), { log: false });
@@ -13,12 +6,16 @@ Cypress.Commands.add('gui_login', (
     cy.get('[class="ficon"').last().click()
     cy.contains('Extratos de Transações')
 });
+//Criando a seção para compartilhar o login entre cenario
 Cypress.Commands.add('sessionLogin', (
-    user = 'mpay@multti.com',
-    password = "123456"
+    user = Cypress.env('user'),
+    password = Cypress.env('password')
 ) => {
+    const options = {
+        cacheAcrossSpecs: true
+    }
     const login = () => cy.gui_login(user, password);
-    cy.session(user, login);
+    cy.session(user, login, options)
 });
 //Verificação dos campos obrigatórios de criar usuário via site 
 Cypress.Commands.add('requiredFields', () => {
@@ -45,7 +42,7 @@ Cypress.Commands.add('login', () => {
 //usuário inválido 
 Cypress.Commands.add('invalidUser', () => {
     cy.clearLocalStorage()
-    cy.visit('/')    
+    cy.visit('/')
     cy.get('#login-email').type('testeteste@teste.com')
     cy.get("#login-password").type('123456')
     cy.get('[class="waves-effect btn btn-primary btn-block"').click()

@@ -1,10 +1,4 @@
-import { faker } from '@faker-js/faker'
-let email = faker.internet.email()
-let user = 'mpay@multti.com'
-let password = '123456'
 Cypress.Commands.add('gui_login', (
-    user = 'mpay@multti.com',
-    password = "123456",
 ) => {
     cy.visit('/');
     cy.get('#login-email').type(Cypress.env('user'));
@@ -45,7 +39,7 @@ Cypress.Commands.add('login', () => {
 //usuário inválido 
 Cypress.Commands.add('invalidUser', () => {
     cy.clearLocalStorage()
-    cy.visit('/')    
+    cy.visit('/')
     cy.get('#login-email').type('testeteste@teste.com')
     cy.get("#login-password").type('123456')
     cy.get('[class="waves-effect btn btn-primary btn-block"').click()

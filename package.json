@@ -4,8 +4,12 @@
   "description": "Automação Dippi",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open "
+    "cy:open:prod": "cypress open --config baseUrl=https://app.dippi.com.br/login --env environment=prod",
+    "cy:open:dev": "cypress open --env environment=dev",
+    "test:prod": "cypress run --config baseUrl=https://app.dippi.com.br/login --env environment=prod",
+    "test:dev": "cypress run --env environment=dev"
   },
+  
   "keywords": [
     "MIT"
   ],
@@ -16,3 +20,4 @@
     "cypress": "^12.9.0"
   }
 }
+

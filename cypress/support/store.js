@@ -75,8 +75,8 @@ Cypress.Commands.add('editStore', () => {
 Cypress.Commands.add('deleteStore', () => {
     cy.visit('/stores')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[placeholder="Digite o que deseja buscar"').type('Teste automação')
-    cy.contains('Teste automação').should('be.visible')
+    cy.get('[placeholder="Digite o que deseja buscar"').type('Loja atualizada')
+    cy.contains('Loja atualizada').should('be.visible')
     cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().should('be.visible').click()
     cy.contains('Excluir').click({ force: true })
     cy.contains('Sim, excluir.').click()

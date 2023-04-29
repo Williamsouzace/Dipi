@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 Cypress.Commands.add('gui_login', (
 ) => {
-=======
-Cypress.Commands.add('gui_login', () => {
->>>>>>> ec32f104ce0b30feb8035eef0601f4280a7fb76b
     cy.visit('/');
     cy.get('#login-email').type(Cypress.env('user'));
     cy.get("#login-password").type(Cypress.env('password'), { log: false });
@@ -11,16 +7,12 @@ Cypress.Commands.add('gui_login', () => {
     cy.get('[class="ficon"').last().click()
     cy.contains('Extratos de Transações')
 });
-//Criando a seção para compartilhar o login entre cenario
 Cypress.Commands.add('sessionLogin', (
-    user = Cypress.env('user'),
-    password = Cypress.env('password')
+    user = 'mpay@multti.com',
+    password = "123456"
 ) => {
-    const options = {
-        cacheAcrossSpecs: true
-    }
     const login = () => cy.gui_login(user, password);
-    cy.session(user, login, options)
+    cy.session(user, login);
 });
 //Verificação dos campos obrigatórios de criar usuário via site 
 Cypress.Commands.add('requiredFields', () => {

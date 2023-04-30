@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker'
 let cnpj = faker.datatype.number({ min: 10000000000000 })
+let valor = '3,50'
+let loja = 'XIAOMI BRASIL COMERCIO DE ELETRONICOS EIRELI teste'
 //Campos obrigatórios
 Cypress.Commands.add('checkRequiredFields', () => {
     cy.visit('/payments-link')
@@ -7,21 +9,47 @@ Cypress.Commands.add('checkRequiredFields', () => {
     cy.contains('Confirmar').click().should('be.visible')
     cy.contains('Cancelar').click().should('be.visible')
 })
-//Gerar link de pagamento com a data inválida 
-Cypress.Commands.add('paymentCreateDateInvalid', () => {
+//Gerar link de pagamento 
+Cypress.Commands.add('paymentCreate', () => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-primary"').click()
-    cy.get('#StoreId').select('XIAOMI BRASIL COMERCIO DE ELETRONICOS EIRELI teste')
+    cy.get('#StoreId').select(loja)
     cy.get('[name="CustomerName"').type('Teste William')
     cy.get('[name="CustomerIdentity"').type(cnpj)
     cy.get('[name="ZipCode"').type('62322365')
     cy.get('[name="Number"').type('100')
-    cy.get('[class="form-control"').eq(11).type('100')
+    cy.get('[class="form-control"').eq(11).type(valor)
     cy.get('#Boleto').click({ force: true })
     cy.get('#Installments').select('Em até 1x')
-    cy.get('[class="form-control calendar-border"').clear().type('28092023')
+})
+Cypress.Commands.add('DateInvalid', () => {
+    cy.get('[class="form-control calendar-border"').clear().type('282023')
     cy.contains('Confirmar').click().should('be.visible')
 })
+Cypress.Commands.add('Datevalid', () => {
+    cy.wait(2000)
+    cy.intercept('POST', '/api/link/create').as('request')
+    cy.contains('Confirmar').click().should('be.visible')  
+    cy.contains('Link de pagamento gerado com sucesso')
+    cy.wait('@request')
+    cy.get('@request').its('response.statusCode').should('eq', 201)  
+    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click({force:true})
+    cy.contains('Abrir link de pagamento').click()
+
+})
+
+Cypress.Commands.add('makePayment', () => {
+    cy.login()
+    cy.visit('//transactions')
+    cy.viewport(1920, 1080)
+    cy.get('[class="btn btn-outline-secondary"').last().click()
+    cy.contains('Escolha as lojas').click().type(loja)
+    cy.get('[class="waves-effect btn btn-primary"').click()
+    cy.get('[rel="noopener noreferrer"').eq(1).invoke('removeAttr', 'target').click()
+    cy.contains('Pagamento pendente.')
+    cy.contains(valor)
+})
+
 Cypress.Commands.add('paymentCancel', () => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-outline-secondary"').click()
@@ -32,3 +60,10 @@ Cypress.Commands.add('paymentCancel', () => {
     cy.contains('Confirmar').click()
     cy.get('[class="Toastify__toast-body"').should('have.text', 'Link de pagamento cancelado com sucesso')
 })
+Cypress.Commands.add('accessLinkPagamneto', () => {
+    cy.visit('//transactions')
+    cy.get('[data-testid="expander-button-undefined"').eq(0).click()
+    cy.contains('d5e473f8-f306-4ae2-b35e-b321a296d701').invoke('removeAttr', 'target').click()
+    cy.contains('Pagamento pendente.')
+})
+

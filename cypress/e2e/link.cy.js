@@ -5,10 +5,15 @@ describe('Link de Pagamento', () => {
     it('Verificar campos obrigatórios', () => {
         cy.checkRequiredFields()
     })
-    it.only('Gerar um link de pagamento', () => {
-        cy.paymentCreateDateInvalid()
+    it.only('Gerar um link de pagamento válido', () => {
+        cy.paymentCreate()
+        cy.Datevalid()
     })
-    it.only('Cancelar pagamento', () => {
-        cy.paymentCancel()
+    it.only('Realizar pagamento', () => {
+        cy.makePayment()
     })
+
+    //it.only('Cancelar pagamento', () => {
+      //  cy.paymentCancel()
+    //})
 })

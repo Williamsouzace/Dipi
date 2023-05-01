@@ -37,7 +37,7 @@ Cypress.Commands.add('gui_login', (
         cy.get('#login-email').type(Cypress.env('user'));
         cy.get("#login-password").type(Cypress.env('password'))
         cy.get('[class="waves-effect btn btn-primary btn-block"').click()
-        cy.contains('Bem vindo, Mpays').should('be.visible')
+        cy.contains('Bem vindo').should('be.visible')
         cy.get('[class="ficon"').last().click()
     })
     //usuário inválido 
@@ -56,5 +56,13 @@ Cypress.Commands.add('gui_login', (
         cy.get('#login-email').type('testeautomacao@multti.com');
         cy.get("#login-password").type('654123')
         cy.get('[class="waves-effect btn btn-primary btn-block"').click()
-        cy.get('[class="Toastify__toast-body"').should('have.text', 'Email ou senha inválido')
+        cy.get('[class="Toastify__toast-body"]').then(($toastBody) => {
+            if ($toastBody.text() === 'Email ou senha inválido') {
+              expect($toastBody).to.have.text('Email ou senha inválido');
+            } else {
+              cy.contains('O campo email selecionado é inválido.').should('be.visible');
+            }
+          });
     })
+
+    

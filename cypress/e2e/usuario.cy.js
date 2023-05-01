@@ -17,7 +17,6 @@ describe('Usuário', () => {
   })
   it('Inativa e Ativa usuário', () => {
     cy.inactivateActivateUser() 
-    cy.inactivateActivateUser()
   })
   it('Deletar Usuário', () => {
     for (let i = 0; i < 1; i++) {

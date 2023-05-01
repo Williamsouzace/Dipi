@@ -10,7 +10,7 @@ describe('Link de Pagamento', () => {
         cy.Datevalid()
     })
     it.only('Realizar pagamento', () => {
-        cy.makePayment()
+        cy.LinkPayment()
     })
 
     //it.only('Cancelar pagamento', () => {

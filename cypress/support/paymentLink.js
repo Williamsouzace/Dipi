@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 let cnpj = faker.datatype.number({ min: 10000000000000 })
-let valor = '3,50'
+let valor = '15,50'
 let loja = 'XIAOMI BRASIL COMERCIO DE ELETRONICOS EIRELI teste'
 //Campos obrigatórios
 Cypress.Commands.add('checkRequiredFields', () => {
@@ -32,22 +32,19 @@ Cypress.Commands.add('Datevalid', () => {
     cy.contains('Confirmar').click().should('be.visible')  
     cy.contains('Link de pagamento gerado com sucesso')
     cy.wait('@request')
+     .then(({ response }) => {
+        cy.task('saveNoteId', response.body.Id)
+     })
     cy.get('@request').its('response.statusCode').should('eq', 201)  
-    cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ua49gz"').first().click({force:true})
-    cy.contains('Abrir link de pagamento').click()
-
 })
-
-Cypress.Commands.add('makePayment', () => {
-    cy.login()
-    cy.visit('//transactions')
-    cy.viewport(1920, 1080)
-    cy.get('[class="btn btn-outline-secondary"').last().click()
-    cy.contains('Escolha as lojas').click().type(loja)
-    cy.get('[class="waves-effect btn btn-primary"').click()
-    cy.get('[rel="noopener noreferrer"').eq(1).invoke('removeAttr', 'target').click()
-    cy.contains('Pagamento pendente.')
-    cy.contains(valor)
+//Acessar ultimo link de pagamento criado
+Cypress.Commands.add('LinkPayment', () => {
+    cy.task('getNoteId')
+      .then(noteId => {
+        cy.intercept('Pagar', `/api/link/create/${noteId}`)
+          .as('PagarLink')
+        cy.visit(`/payment-link/${noteId}`)
+      })
 })
 
 Cypress.Commands.add('paymentCancel', () => {

@@ -126,46 +126,58 @@ Cypress.Commands.add('paymentLinkFilters', () => {
     cy.viewport(1920, 1080);
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="search_term"').type(cliente)
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains(cliente).should('be.visible')//verificação se está visivel na plataforma 
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').first().click().type('EMPRESA PARA TESTE{enter}')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('EMPRESA PARA TESTE').should('be.visible')
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[name="CustomerName"').type(cliente)
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains(cliente).should('be.visible')
+    cy.contains('Limpar').click()//Limpar filtros
     //cy.get('[name="CustomerIdentity"').type(cnpj)
-    cy.get('[placeholder="Data de criação"').type('09/05/2030')
+    cy.get('[placeholder="Data de criação"').type('08/05/2023')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('08/05/2023').should('be.visible')
+    cy.contains('Limpar').click()//Limpar filtros
     //cy.get('[placeholder="Data de vencimento"').type('08/05/2023')
-    //---------------------------------------------------------------------elementos de situação---------------------------------------------------------------------------//
+    //-------------------------------------------------------------elementos de situação---------------------------------------------------------------------------//
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pendente{enter}')
-    cy.get('[type="submit"').click({ force: true })
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.wait(3000)
     cy.contains('Pendente').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="css-8mmkcg"').eq(2).click()
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pago{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="badge badge-light-success badge-pill"').first().should('have.text', 'Paga')
-    cy.get('[class="css-8mmkcg"').eq(2).click()
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Cancelado{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Cancelado').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="css-8mmkcg"').eq(2).click()
-     //---------------------------------------------------------------------elementos de pago com:---------------------------------------------------------------------------//
+    cy.contains('Limpar').click()//Limpar filtros
+    //------------------------------------------------------------elementos de pago com:---------------------------------------------------------------------------//
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Aguardando{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Aguardando pagamento').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="css-8mmkcg"').eq(3).click()
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Crédito{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Cartão de Crédito').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="css-8mmkcg"').eq(3).click()
+    cy.contains('Limpar').click()//Limpar filtros
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Pix{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Pix').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="css-8mmkcg"').eq(3).click()
+    cy.contains('Limpar').click()//Limpar filtros
 })

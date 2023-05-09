@@ -52,7 +52,7 @@ describe('Link de Pagamento', () => {
         cy.debtPayment()
         cy.verification_Status(status)
     })
-    it('Verificação dos filtros', () => {
+    it.only('Verificação dos filtros', () => {
         cy.paymentLinkFilters()
     })
 

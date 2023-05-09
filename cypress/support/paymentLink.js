@@ -134,6 +134,7 @@ Cypress.Commands.add('filterCustomerSearchTerm', () => {
     cy.contains(cliente).should('be.visible')//verificação se está visivel na plataforma 
     cy.contains('Limpar').click()//Limpar filtros
 })
+//Buscar por loja
 Cypress.Commands.add('filterStore', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').first().click().type('EMPRESA PARA TESTE{enter}')
@@ -142,18 +143,21 @@ Cypress.Commands.add('filterStore', () => {
     cy.contains('EMPRESA PARA TESTE').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
 })
+//Filtrar por cliente
 Cypress.Commands.add('filterCustomer', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="CustomerName"').type(cliente)
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains(cliente).should('be.visible')
 })
+//Filtrar por CNPJ
 Cypress.Commands.add('filterCnpj', () => {
     //    cy.get('[class="btn btn-outline-secondary"').click()
     //cy.get('[name="CustomerIdentity"').type(cnpj)
     //cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     //cy.contains('EMPRESA PARA TESTE').should('be.visible')
 })
+//Filtrar por data
 Cypress.Commands.add('filterDate', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
@@ -209,11 +213,6 @@ Cypress.Commands.add('filterCredit', () => {
     cy.get('[class="css-xb97g8 select__multi-value__remove"').click()//Limpar clicando no 'x'
 })
 //Filtrar por Pix
-
-
-
-
-
 Cypress.Commands.add('filterPix', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Pix{enter}')

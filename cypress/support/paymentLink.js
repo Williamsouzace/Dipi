@@ -152,7 +152,7 @@ Cypress.Commands.add('filterCustomer', () => {
 })
 //Filtrar por CNPJ
 Cypress.Commands.add('filterCnpj', () => {
-    //    cy.get('[class="btn btn-outline-secondary"').click()
+    //  cy.get('[class="btn btn-outline-secondary"').click()
     //cy.get('[name="CustomerIdentity"').type(cnpj)
     //cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     //cy.contains('EMPRESA PARA TESTE').should('be.visible')
@@ -163,7 +163,9 @@ Cypress.Commands.add('filterDate', () => {
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('08/05/2023').should('be.visible')
-    //cy.get('[placeholder="Data de vencimento"').type('08/05/2023')
+    cy.get('[placeholder="Data de vencimento"').type('10/10/2030')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('10/10/2030').should('be.visible')
 })
 //elementos de situação
 //Filtrar por Pendente
@@ -172,8 +174,15 @@ Cypress.Commands.add('filterPending', () => {
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pendente{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.wait(3000)
     cy.contains('Pendente').should('be.visible')
+    cy.get('[class="btn btn-outline-secondary"').click()
+})
+Cypress.Commands.add('filterExpired', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
+    cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Expirado{enter}')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.get('[class="btn btn-outline-secondary"').click()
+    cy.contains('Expirado').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
 })
 //Filtrar por Paga

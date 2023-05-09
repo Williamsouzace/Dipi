@@ -56,29 +56,33 @@ describe('Link de Pagamento', () => {
         it('Filtros do link de pagamento', () => {
             cy.filterCustomerSearchTerm()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros por Loja', () => {
             cy.filterStore()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros por CNPJ', () => {
             cy.filterCnpj()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros por data de ciração e expiração', () => {
             cy.filterDate()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros de situação paga', () => {
             cy.filterPay()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros de situação expirada ', () => {
+            cy.filterExpired()
+        })
+        it('Filtros de situação cancelada', () => {
             cy.filterCancel()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros de pago com: aguardando pagamento', () => {
             cy.filterWaiting()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros de pago com: cartão de crédito', () => {
             cy.filterCredit()
         })
-        it('Filtros do link de pagamento', () => {
+        it('Filtros de pago com: Pix', () => {
             cy.filterPix()
         })
+
     })
 })

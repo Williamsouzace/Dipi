@@ -167,7 +167,7 @@ Cypress.Commands.add('filterDate', () => {
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('10/10/2030').should('be.visible')
 })
-//elementos de situação
+//situação
 //Filtrar por Pendente
 Cypress.Commands.add('filterPending', () => {
     cy.get('[class="btn btn-outline-secondary"').click()

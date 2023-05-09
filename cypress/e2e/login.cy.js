@@ -1,4 +1,4 @@
-describe('login', () => {
+describe('Login', () => {
     it('Usuário inválido', () => {
         cy.invalidUser()
     })

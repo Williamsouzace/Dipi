@@ -7,14 +7,14 @@ const cardName = Cypress.env('nome_Cartao')
 const numeroCartao = Cypress.env('numeroCartao')
 const cod_Seg = Cypress.env('cod_Seg')
 const data_Exp = Cypress.env('data_Exp')
-//-------------------------------------------------------------------------Campos obrigatórios---------------------------------------------------------------//
+//Campos obrigatórios
 Cypress.Commands.add('checkRequiredFields', () => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-primary"').click()
     cy.contains('Confirmar').click().should('be.visible')
     cy.contains('Cancelar').click().should('be.visible')
 })
-//-----------------------------------------------------------------------Gerar link de pagamento---------------------------------------------------------------//
+//Gerar link de pagamento
 Cypress.Commands.add('paymentCreate', (portion, date) => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-primary"').click()
@@ -37,6 +37,7 @@ Cypress.Commands.add('paymentCreate', (portion, date) => {
         })
     cy.get('@request').its('response.statusCode').should('eq', 201)
 })
+//Gerar link de pagamento com a data inválida
 Cypress.Commands.add('paymentCreate_date_invalid', (portion) => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-primary"').click()
@@ -64,6 +65,7 @@ Cypress.Commands.add('linkPayment', () => {
             cy.visit(`/payment-link/${noteId}`)
         })
 })
+//Cancelar link de pagamento
 Cypress.Commands.add('paymentCancel', () => {
     cy.visit('/payments-link')
     cy.get('[class="btn btn-outline-secondary"').click()
@@ -74,6 +76,7 @@ Cypress.Commands.add('paymentCancel', () => {
     cy.contains('Confirmar').click()
     cy.get('[class="Toastify__toast-body"').should('have.text', 'Link de pagamento cancelado com sucesso')
 })
+//Pagar link de pagamento com cartão de crédito 
 Cypress.Commands.add('creditPayment', (portion) => {
     cy.get('[name="cardNumber"').first().type(numeroCartao)
     cy.get('[name="holder"').first().type(cardName)
@@ -85,6 +88,7 @@ Cypress.Commands.add('creditPayment', (portion) => {
     cy.wait('@request')
     cy.get('@request').its('response.statusCode').should('eq', 201)
 })
+//Pagar link de pagamento com cartão de débito
 Cypress.Commands.add('debtPayment', () => {
     cy.get('[name="cardNumber"').last().type(numeroCartao)
     cy.get('[name="holder"').last().type(cardName)
@@ -95,6 +99,7 @@ Cypress.Commands.add('debtPayment', () => {
     cy.wait('@request')
     cy.get('@request').its('response.statusCode').should('eq', 201)
 })
+//verificação do status de pagamento
 Cypress.Commands.add('verification_Status', (status) => {
     cy.visit('/payments-link')
     cy.intercept('GET', '/api/link/list?orderBy=PaymentLinkId&orderByType=desc&order_by=PaymentLinkId&order_by_type=desc&per_page=10&page=1').as('request')
@@ -121,62 +126,98 @@ Cypress.Commands.add('verification_Status', (status) => {
         checkStatus();
     });
 })
-Cypress.Commands.add('paymentLinkFilters', () => {
-    cy.visit('/payments-link')
-    cy.viewport(1920, 1080);
+//Verificação dos filtros
+Cypress.Commands.add('filterCustomerSearchTerm', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="search_term"').type(cliente)
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains(cliente).should('be.visible')//verificação se está visivel na plataforma 
     cy.contains('Limpar').click()//Limpar filtros
+})
+Cypress.Commands.add('filterStore', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').first().click().type('EMPRESA PARA TESTE{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('EMPRESA PARA TESTE').should('be.visible')
-    cy.contains('Limpar').click()//Limpar filtros
+    cy.get('[class="btn btn-outline-secondary"').click()
+})
+Cypress.Commands.add('filterCustomer', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="CustomerName"').type(cliente)
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains(cliente).should('be.visible')
-    cy.contains('Limpar').click()//Limpar filtros
+})
+Cypress.Commands.add('filterCnpj', () => {
+    //    cy.get('[class="btn btn-outline-secondary"').click()
     //cy.get('[name="CustomerIdentity"').type(cnpj)
+    //cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    //cy.contains('EMPRESA PARA TESTE').should('be.visible')
+})
+Cypress.Commands.add('filterDate', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('08/05/2023').should('be.visible')
-    cy.contains('Limpar').click()//Limpar filtros
     //cy.get('[placeholder="Data de vencimento"').type('08/05/2023')
-    //-------------------------------------------------------------elementos de situação---------------------------------------------------------------------------//
+})
+//elementos de situação
+//Filtrar por Pendente
+Cypress.Commands.add('filterPending', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pendente{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Pendente').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.contains('Limpar').click()//Limpar filtros
+})
+//Filtrar por Paga
+Cypress.Commands.add('filterPay', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pago{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="badge badge-light-success badge-pill"').first().should('have.text', 'Paga')
-    cy.contains('Limpar').click()//Limpar filtros
+})
+//Filtrar por Cancelado
+Cypress.Commands.add('filterCancel', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Cancelado{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Cancelado').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.contains('Limpar').click()//Limpar filtros
-    //------------------------------------------------------------elementos de pago com:---------------------------------------------------------------------------//
+})
+//elementos de pago com:
+//Filtrar por Aguardando pagamento
+Cypress.Commands.add('filterWaiting', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Aguardando{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Aguardando pagamento').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.contains('Limpar').click()//Limpar filtros
+})
+//Filtrar por cartão de crédito
+Cypress.Commands.add('filterCredit', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Crédito{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Cartão de Crédito').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.contains('Limpar').click()//Limpar filtros
+    cy.get('[class="css-xb97g8 select__multi-value__remove"').click()//Limpar clicando no 'x'
+})
+//Filtrar por Pix
+
+
+
+
+
+Cypress.Commands.add('filterPix', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').last().click().type('Pix{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Pix').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.contains('Limpar').click()//Limpar filtros
 })

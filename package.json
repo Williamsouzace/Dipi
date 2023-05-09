@@ -9,7 +9,6 @@
     "test:prod": "cypress run --config baseUrl=https://app.dippi.com.br --env environment=prod,nome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023",
     "test:dev": "cypress run --env environment=devnome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023"
   },
-  
   "keywords": [
     "MIT"
   ],
@@ -18,6 +17,8 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "cypress": "^12.9.0"
+  },
+  "dependencies": {
+    "cypress-plugin-api": "^2.11.0"
   }
 }
-

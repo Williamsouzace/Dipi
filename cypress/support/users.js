@@ -8,7 +8,7 @@ Cypress.Commands.add('createUsersSite', () => {
     cy.clearAllCookies()
     cy.visit('/')
     cy.get('.text-center > .auth-create').last().click()
-    cy.get('[class="mb-1 form-control"').first().type('Teste Automação').should('be.visible')
+    cy.get('[class="mb-1 form-control"').first().type('Usuário automação').should('be.visible')
     cy.get('[class="mb-1 form-control"').last().type(email).should('be.visible')
     cy.get('[class="form-control"').first().type('88998141112').should('be.visible')
     cy.get('#login-password').type('123456').should('be.visible')

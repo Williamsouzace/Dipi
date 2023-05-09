@@ -19,7 +19,7 @@ describe('Usuário', () => {
     cy.inactivateActivateUser() 
   })
   it('Deletar Usuário', () => {
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 2; i++) {
       cy.deleteUsers()
     }
   })

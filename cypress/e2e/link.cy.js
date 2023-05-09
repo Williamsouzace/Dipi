@@ -80,6 +80,9 @@ describe('Link de Pagamento', () => {
         it('Filtros de pago com: cartão de crédito', () => {
             cy.filterCredit()
         })
+        it('Filtros por cartão de Débito', () => {
+            cy.filterDebit()
+        })
         it('Filtros de pago com: Pix', () => {
             cy.filterPix()
         })

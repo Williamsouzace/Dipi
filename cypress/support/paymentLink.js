@@ -152,10 +152,10 @@ Cypress.Commands.add('filterCustomer', () => {
 })
 //Filtrar por CNPJ
 Cypress.Commands.add('filterCnpj', () => {
-    //    cy.get('[class="btn btn-outline-secondary"').click()
-    //cy.get('[name="CustomerIdentity"').type(cnpj)
-    //cy.get('[type="submit"').click({ force: true })//Botão de filtrar
-    //cy.contains('EMPRESA PARA TESTE').should('be.visible')
+    cy.get('[class="btn btn-outline-secondary"').click()
+    cy.get('[name="CustomerIdentity"').type('038.755.100-03')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('Fernanda').should('be.visible')
 })
 //Filtrar por data
 Cypress.Commands.add('filterDate', () => {

@@ -168,6 +168,7 @@ Cypress.Commands.add('filterPending', () => {
     cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(0).click().type('Pendente{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
+    cy.wait(3000)
     cy.contains('Pendente').should('be.visible')
     cy.get('[class="btn btn-outline-secondary"').click()
 })

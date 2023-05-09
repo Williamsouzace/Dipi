@@ -155,7 +155,7 @@ Cypress.Commands.add('filterCnpj', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="CustomerIdentity"').type(cnpj)
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
-    cy.contains('Teste William').should('be.visible')
+    cy.contains(cnpj).should('be.visible')
 })
 //Filtrar por data
 Cypress.Commands.add('filterDate', () => {
@@ -163,9 +163,9 @@ Cypress.Commands.add('filterDate', () => {
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('08/05/2023').should('be.visible')
-    //cy.get('[placeholder="Data de vencimento"').type('10/10/2030')
-    //cy.get('[type="submit"').click({ force: true })//Botão de filtrar
-    //cy.contains('10/10/2030').should('be.visible')
+    /*cy.get('[placeholder="Data de vencimento"').type('10/10/2030')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('10/10/2030').should('be.visible')*/
 })
 //situação
 //Filtrar por Pendente
@@ -180,7 +180,7 @@ Cypress.Commands.add('filterPending', () => {
 //Filtro por expirado
 Cypress.Commands.add('filterExpired', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
-    cy.get('[class="selectvalue-container selectvalue-container--is-multi css-1hwfws3"').eq(1).click().type('Expirado{enter}')
+    cy.get('[class="select__value-container select__value-container--is-multi css-1hwfws3"').eq(1).click().type('Expirado{enter}')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.contains('Expirado').should('be.visible')

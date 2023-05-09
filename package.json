@@ -4,7 +4,7 @@
   "description": "Automação Dippi",
   "main": "index.js",
   "scripts": {
-    "cy:open:prod": "cypress open --config baseUrl=https://app.dippi.com.br --env environment=prod,nome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023",
+    "cy:open:prod": "cypress open --config baseUrl=https://app.dippi.com.br --env environment=prod,nome_Cartao=Prodmultti,numeroCartao=1000000000001010,cod_Seg=321,data_Exp=122030",
     "cy:open:dev": "cypress open --env environment=dev,nome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023",
     "test:prod": "cypress run --config baseUrl=https://app.dippi.com.br --env environment=prod,nome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023",
     "test:dev": "cypress run --env environment=devnome_Cartao=multti,numeroCartao=4000000000000010,cod_Seg=123,data_Exp=122023"

@@ -15,6 +15,10 @@ describe('Link de Pagamento', () => {
         let portion = 'Em até 1x'
         cy.paymentCreate_date_invalid(portion)
     })
+    it('Gerar um link de pagamento data invalida', () => {
+        let portion = 'Em até 1x'
+        cy.paymentCreate_date_invalid(portion)
+    })
     it('Gerar um link de pagamento válido', () => {
         let portion = 'Em até 1x'
         let date = '10102030'

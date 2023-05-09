@@ -105,7 +105,7 @@ Cypress.Commands.add('verification_Status', (status) => {
             let statusName = interception.response.body.data[0].StatusName;
             cy.log(statusName);
             if (statusName === 'Pendente') {
-                cy.wait(3000);
+                cy.wait(5000);
                 cy.visit('/payments-link');
                 cy.intercept('GET', '/api/link/list?orderBy=PaymentLinkId&orderByType=desc&order_by=PaymentLinkId&order_by_type=desc&per_page=10&page=1').as('request');
                 cy.wait('@request').then((updatedInterception) => {

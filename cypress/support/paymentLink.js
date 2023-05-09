@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 let cnpj = faker.datatype.number({ min: 10000000000000 })
-let valor = '0.12'
-let loja = 'XIAOMI BRASIL COMERCIO DE ELETRONICOS EIRELI teste'
+let valor = '0.92'
+let loja = 'EMPRESA PARA TESTE'
 const cardName = Cypress.env('nome_Cartao')
 const numeroCartao = Cypress.env('numeroCartao')
 const cod_Seg = Cypress.env('cod_Seg')
@@ -12,6 +12,22 @@ Cypress.Commands.add('checkRequiredFields', () => {
     cy.get('[class="btn btn-primary"').click()
     cy.contains('Confirmar').click().should('be.visible')
     cy.contains('Cancelar').click().should('be.visible')
+})
+Cypress.Commands.add('paymentCreate_date_invalid', (portion) => {
+    cy.visit('/payments-link')
+    cy.get('[class="btn btn-primary"').click()
+    cy.get('#StoreId').select(loja)
+    cy.get('[name="CustomerName"').type('Teste William')
+    cy.get('[name="CustomerIdentity"').type(cnpj)
+    cy.get('[name="ZipCode"').type('62322365')
+    cy.get('[name="Number"').type('100')
+    cy.get('[class="form-control"').eq(11).type(valor)
+    cy.get('[class="form-control calendar-border"').clear().type('07052023')
+    cy.get('#Boleto').click({ force: true })
+    cy.get('#Installments').select(portion,{force:true})
+    cy.wait(2000)
+    cy.contains('Confirmar').click().should('be.visible')
+    //cy.contains('Link de pagamento gerado com sucesso')
 })
 //Gerar link de pagamento 
 Cypress.Commands.add('paymentCreate', (portion,date) => {
@@ -88,7 +104,7 @@ Cypress.Commands.add('verification_Status', (status) => {
             let statusName = interception.response.body.data[0].StatusName;
             cy.log(statusName);
             if (statusName === 'Pendente') {
-                cy.wait(3000);
+                cy.wait(5000);
                 cy.visit('/payments-link');
                 cy.intercept('GET', '/api/link/list?orderBy=PaymentLinkId&orderByType=desc&order_by=PaymentLinkId&order_by_type=desc&per_page=10&page=1').as('request');
                 cy.wait('@request').then((updatedInterception) => {

@@ -28,7 +28,7 @@ Cypress.Commands.add('createUsersPlataform', () => {
     cy.get('[name="cpf"').type(cpf).should('be.visible')
     cy.get('[class="form-control calendar-border"').type('10/10/1990')
     cy.get('[name="profile_id"').select('Cliente')
-    cy.get('[class="select__indicator select__dropdown-indicator css-qj08tm-indicatorContainer"]').click().type('Mult{enter}Ro{enter}')
+    cy.get('[class="select__indicator select__dropdown-indicator css-qj08tm-indicatorContainer"]').click().type('EMPRESA PARA TESTE{enter}Ro{enter}')
     cy.get('[name="password"').type('123456')
     cy.get('[name="password_confirmation"').type('123456')
     cy.intercept('POST', '/api/store/users/create').as('request')  

@@ -48,8 +48,37 @@ describe('Link de Pagamento', () => {
         cy.debtPayment()
         cy.verification_Status(status)
     })
-    it('Verificação dos filtros', () => {
-        cy.paymentLinkFilters()
+    context('Verificação dos filtros', () => {
+        beforeEach(function () {
+            cy.visit('/payments-link')
+            cy.viewport(1920, 1080);
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterCustomerSearchTerm()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterStore()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterCnpj()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterDate()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterPay()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterCancel()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterWaiting()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterCredit()
+        })
+        it('Filtros do link de pagamento', () => {
+            cy.filterPix()
+        })
     })
-
 })

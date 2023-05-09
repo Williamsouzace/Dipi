@@ -15,16 +15,12 @@ describe('Link de Pagamento', () => {
         let portion = 'Em até 1x'
         cy.paymentCreate_date_invalid(portion)
     })
-    it('Gerar um link de pagamento data invalida', () => {
-        let portion = 'Em até 1x'
-        cy.paymentCreate_date_invalid(portion)
-    })
-    it('Gerar um link de pagamento válido', () => {
+    it.only('Gerar um link de pagamento válido', () => {
         let portion = 'Em até 1x'
         let date = '10102030'
         cy.paymentCreate(portion, date)
     })
-    it('Realizar pagamento e verificação de status', () => {
+    it.only('Realizar pagamento e verificação de status', () => {
         let status = 'Paga'
         let portion = '1'
         cy.linkPayment()
@@ -52,7 +48,7 @@ describe('Link de Pagamento', () => {
         cy.debtPayment()
         cy.verification_Status(status)
     })
-    it.only('Verificação dos filtros', () => {
+    it('Verificação dos filtros', () => {
         cy.paymentLinkFilters()
     })
 

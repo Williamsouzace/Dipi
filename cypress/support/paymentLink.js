@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 let cnpj = faker.datatype.number({ min: 10000000000000 })
-let valor = '0.12'
+let valor = '0.02'
 let loja = 'EMPRESA PARA TESTE'
 let cliente = 'Teste William'
 const cardName = Cypress.env('nome_Cartao')

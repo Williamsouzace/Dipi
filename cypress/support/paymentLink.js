@@ -157,7 +157,7 @@ Cypress.Commands.add('filterCnpj', () => {
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('Teste William').should('be.visible')
 })
-//Filtrar por data
+//Filtrar por data de vencimento
 Cypress.Commands.add('filterDateMaturity', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
@@ -167,6 +167,7 @@ Cypress.Commands.add('filterDateMaturity', () => {
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('10/10/2030').should('be.visible')*/
 })
+//Filtrar por data de criação
 Cypress.Commands.add('filterDateCreation', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Data de vencimento"').type('10/10/2030')

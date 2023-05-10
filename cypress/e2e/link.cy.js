@@ -62,8 +62,11 @@ describe('Link de Pagamento', () => {
         it('Filtros por CNPJ', () => {
             cy.filterCnpj()
         })
-        it('Filtros por data de ciração e expiração', () => {
-            cy.filterDate()
+        it('Filtros por data de ciração', () => {
+            cy.filterDateMaturity()
+        })
+        it('Filtros por data de expiração', () => {
+            cy.filterDateCreation()
         })
         it('Filtros de situação paga', () => {
             cy.filterPay()

@@ -155,10 +155,10 @@ Cypress.Commands.add('filterCnpj', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[name="CustomerIdentity"').type(cnpj)
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
-    cy.contains(cnpj).should('be.visible')
+    cy.contains('Teste William').should('be.visible')
 })
 //Filtrar por data
-Cypress.Commands.add('filterDate', () => {
+Cypress.Commands.add('filterDateMaturity', () => {
     cy.get('[class="btn btn-outline-secondary"').click()
     cy.get('[placeholder="Data de criação"').type('08/05/2023')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
@@ -166,6 +166,12 @@ Cypress.Commands.add('filterDate', () => {
     /*cy.get('[placeholder="Data de vencimento"').type('10/10/2030')
     cy.get('[type="submit"').click({ force: true })//Botão de filtrar
     cy.contains('10/10/2030').should('be.visible')*/
+})
+Cypress.Commands.add('filterDateCreation', () => {
+    cy.get('[class="btn btn-outline-secondary"').click()
+    cy.get('[placeholder="Data de vencimento"').type('10/10/2030')
+    cy.get('[type="submit"').click({ force: true })//Botão de filtrar
+    cy.contains('10/10/2030').should('be.visible')
 })
 //situação
 //Filtrar por Pendente
